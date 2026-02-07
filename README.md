@@ -4,13 +4,14 @@ Tiny retry with exponential backoff, jitter, timeout, and AbortSignal support.
 
 - **Zero dependencies**
 - **TypeScript-first** with full type inference
-- **~150 lines** of code
+- **~200 lines** of code (plus 100 lines of JSDoc)
 - **ESM and CommonJS** support
 
 ## Why nano-retry?
 
 | Feature | p-retry | async-retry | nano-retry |
 |---------|---------|-------------|------------|
+| Dependencies | 2 | 1 | **0** |
 | Native TypeScript | ✅ | ❌ (needs @types) | ✅ |
 | ESM + CJS | ESM-only (v6+) | CJS only | ✅ Both |
 | Per-attempt timeout | ❌ | ❌ | ✅ |
@@ -18,6 +19,7 @@ Tiny retry with exponential backoff, jitter, timeout, and AbortSignal support.
 | AbortSignal | ✅ | ❌ | ✅ |
 | Jitter (default) | opt-in | opt-in | ✅ on by default |
 | Bail mechanism | AbortError class | bail() callback | retryIf predicate |
+| Bundle size (gzip) | ~3KB + deps | ~2KB + deps | **2.3KB** |
 
 ## Installation
 
