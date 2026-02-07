@@ -1,0 +1,62 @@
+{
+  "name": "nano-retry",
+  "version": "1.0.0",
+  "description": "Tiny retry with exponential backoff, jitter, timeout, and AbortSignal support.",
+  "author": "npclfg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/npclfg/nano-retry.git"
+  },
+  "bugs": {
+    "url": "https://github.com/npclfg/nano-retry/issues"
+  },
+  "homepage": "https://github.com/npclfg/nano-retry#readme",
+  "main": "./dist/cjs/retry.js",
+  "module": "./dist/esm/retry.js",
+  "types": "./dist/cjs/retry.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/cjs/retry.d.ts",
+        "default": "./dist/esm/retry.js"
+      },
+      "require": {
+        "types": "./dist/cjs/retry.d.ts",
+        "default": "./dist/cjs/retry.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "test": "npm run build && node test/run.js",
+    "verify": "npm run build && node scripts/verify.js",
+    "bench": "npm run build && node benchmark/bench.js",
+    "sample": "npm run build && node sample/app.js",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "retry",
+    "backoff",
+    "exponential",
+    "jitter",
+    "async",
+    "promise",
+    "timeout",
+    "abort",
+    "typescript"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
