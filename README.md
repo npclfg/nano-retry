@@ -7,6 +7,30 @@ Tiny retry with exponential backoff, jitter, timeout, and AbortSignal support.
 - **~200 lines** of code (plus 100 lines of JSDoc)
 - **ESM and CommonJS** support
 
+## The Problem
+
+Your OpenAI call hangs. Your Stripe webhook times out. You add p-retry but:
+
+```typescript
+// p-retry: no per-attempt timeout, so one hung request = stuck forever
+// p-retry: jitter is OFF by default, so your retries stampede together
+// p-retry: you throw AbortError to stop retrying (weird)
+```
+
+## The Fix
+
+```typescript
+import { retry } from "nano-retry";
+
+await retry(() => openai.chat.completions.create({ model: "gpt-4", messages }), {
+  attemptTimeout: 30000,  // kill hung requests after 30s (p-retry can't do this)
+  retryIf: (err) => err.status === 429 || err.status >= 500,  // simple predicate
+});
+// jitter already on by default - no thundering herd
+```
+
+That's it. Your call retries on failure, times out stuck attempts, and staggers retries automatically.
+
 ## Why nano-retry?
 
 | Feature | p-retry | async-retry | nano-retry |
@@ -31,31 +55,19 @@ npm install nano-retry
 
 ## Quick Start
 
-```javascript
+```typescript
 import { retry } from "nano-retry";
 
-// Basic usage
+// Retries 3 times with exponential backoff (1s, 2s, 4s)
 const data = await retry(() => fetch("/api/data"));
 
 // With options
-const result = await retry(
-  async (attempt) => {
-    console.log(`Attempt ${attempt}`);
-    return await fetchWithTimeout("/api/data");
-  },
-  {
-    retries: 5,
-    minTimeout: 1000,
-    retryIf: (error) => error.status === 429 || error.status >= 500,
-    onRetry: (error, ctx) => console.log(`Retrying in ${ctx.nextDelay}ms...`),
-  }
-);
-```
-
-### CommonJS
-
-```javascript
-const { retry } = require("nano-retry");
+await retry(() => callApi(), {
+  retries: 5,                // max 5 retries
+  attemptTimeout: 10000,     // 10s max per attempt
+  retryIf: (err) => err.status >= 500,  // only retry server errors
+  onRetry: (err, ctx) => console.log(`Retry ${ctx.attempt}...`),
+});
 ```
 
 ## API Reference
