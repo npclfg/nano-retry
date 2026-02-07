@@ -1,6 +1,6 @@
 {
   "name": "nano-retry",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tiny retry with exponential backoff, jitter, timeout, and AbortSignal support.",
   "author": "npclfg",
   "repository": {
@@ -34,7 +34,7 @@
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm",
     "build:cjs": "tsc",
-    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:esm": "tsc -p tsconfig.esm.json && node scripts/postbuild-esm.js",
     "test": "npm run build && node test/run.js",
     "verify": "npm run build && node scripts/verify.js",
     "bench": "npm run build && node benchmark/bench.js",
