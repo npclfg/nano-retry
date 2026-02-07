@@ -1,6 +1,6 @@
 {
   "name": "nano-retry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tiny retry with exponential backoff, jitter, timeout, and AbortSignal support.",
   "author": "npclfg",
   "repository": {
@@ -50,7 +50,9 @@
     "promise",
     "timeout",
     "abort",
-    "typescript"
+    "typescript",
+    "p-retry",
+    "async-retry"
   ],
   "license": "MIT",
   "engines": {

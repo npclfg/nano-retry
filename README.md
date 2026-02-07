@@ -1,5 +1,9 @@
 # nano-retry
 
+[![npm version](https://img.shields.io/npm/v/nano-retry)](https://npmjs.com/package/nano-retry)
+[![npm downloads](https://img.shields.io/npm/dm/nano-retry)](https://npmjs.com/package/nano-retry)
+[![license](https://img.shields.io/npm/l/nano-retry)](https://github.com/npclfg/nano-retry/blob/main/LICENSE)
+
 Tiny retry with exponential backoff, jitter, timeout, and AbortSignal support.
 
 - **Zero dependencies**
