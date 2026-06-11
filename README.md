@@ -8,7 +8,7 @@ Tiny retry with exponential backoff, jitter, timeout, and AbortSignal support.
 
 - **Zero dependencies**
 - **TypeScript-first** with full type inference
-- **~200 lines** of code (plus 100 lines of JSDoc)
+- **~220 lines** of code (plus JSDoc)
 - **ESM and CommonJS** support
 
 ## The Problem
